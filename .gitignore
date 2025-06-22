@@ -13,6 +13,7 @@ Thumbs.db
 
 # Visual Studio
 .vscode/
+.vs/
 *.csproj
 *.unityproj
 *.sln
@@ -29,3 +30,6 @@ ExportedObj/
 .consulo/
 *.apk
 *.aab
+
+# Unity project-specific
+UserSettings/
