@@ -40,7 +40,7 @@ public class PictureManager : MonoBehaviour
             _materialList.Add(mat);
 
             var currentTextureFilePath = textureFilePath + matBaseName + index;
-            _texturePathList.Add(currentFilePath);
+            _texturePathList.Add(currentTextureFilePath);
         }
 
         _firstTexturePath = textureFilePath + firstMaterialName;
