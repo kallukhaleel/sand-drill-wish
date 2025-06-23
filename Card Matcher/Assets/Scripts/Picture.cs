@@ -31,7 +31,8 @@ public class Picture : MonoBehaviour
     public void OnMouseDown()
     {
         if (!_clicked)
-        { 
+        {
+            _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             StartCoroutine(LoopRotation(45, false));
             _clicked = true;
         }
@@ -41,9 +42,10 @@ public class Picture : MonoBehaviour
     {
         if (gameObject.activeSelf)
         {
+            System.Threading.Thread.Sleep(600);
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             Revealed = false;
-            StartCoroutine(LoopRotation(45, false));
+            StartCoroutine(LoopRotation(45, true));
         }
     }
     IEnumerator LoopRotation(float angle, bool FirstMat)
@@ -96,6 +98,8 @@ public class Picture : MonoBehaviour
             _pictureManager.PuzzleRevealedNumber = PictureManager.ReveleadState.NoRevealed;
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.CanRotate;
         }
+
+        _clicked = false;
 
     }
 
