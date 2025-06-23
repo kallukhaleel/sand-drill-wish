@@ -12,6 +12,9 @@ public class PictureManager : MonoBehaviour
     public List<Picture> PictureList;
 
     private Vector2 _offset = new Vector2(1.5f, 1.52f);
+    private Vector2 _offset_15Pair = new Vector2(1.08f, 1.22f);
+    private Vector2 _offset_20Pair = new Vector2(1.08f, 1.0f);
+    private Vector3 _newScaleDown = new Vector3(0.9f, 0.9f, 0.001f);
 
     private List<Material> _materialList = new List<Material>();
     private List<string> _texturePathList = new List<string>();
@@ -21,8 +24,22 @@ public class PictureManager : MonoBehaviour
     void Start()
     {
         LoadMaterials();
-        SpawnPictureMesh(4, 5, StartPosition, _offset, false );
-        MovePicture(4, 5, StartPosition, _offset);
+
+        if (GameSettings.Instance.GetPairNumber() == GameSettings.EPairNumber.EPairs10 )
+        {
+            SpawnPictureMesh(4, 5, StartPosition, _offset, false);
+            MovePicture(4, 5, StartPosition, _offset);
+        }
+        else if (GameSettings.Instance.GetPairNumber() == GameSettings.EPairNumber.EPairs15)
+        {
+            SpawnPictureMesh(5, 6, StartPosition, _offset_15Pair, false);
+            MovePicture(5, 6, StartPosition, _offset_15Pair);
+        }
+        else if (GameSettings.Instance.GetPairNumber() == GameSettings.EPairNumber.EPairs20)
+        {
+            SpawnPictureMesh(5, 8, StartPosition, _offset_20Pair, true);
+            MovePicture(5, 8, StartPosition, _offset_20Pair);
+        }
     }
 
     private void LoadMaterials()
@@ -59,6 +76,11 @@ public class PictureManager : MonoBehaviour
             for (int row = 0; row < rows; row++)
             {
                 var tempPicture = (Picture)Instantiate(PicturePrefab, PicSpawnPosition.position, PicturePrefab.transform.rotation);
+
+                if (scaleDown)
+                {
+                    tempPicture.transform.localScale = _newScaleDown;
+                }
 
                 tempPicture.name = tempPicture.name + 'c' + col + 'r' + row;
                 PictureList.Add(tempPicture);
