@@ -58,7 +58,7 @@ public class PictureManager : MonoBehaviour
         {
             for (int row = 0; row < rows; row++)
             {
-                var tempPicture = (Picture)Instantiate(PicturePrefab, PicSpawnPosition.position, PicSpawnPosition.transform.rotation);
+                var tempPicture = (Picture)Instantiate(PicturePrefab, PicSpawnPosition.position, PicturePrefab.transform.rotation);
 
                 tempPicture.name = tempPicture.name + 'c' + col + 'r' + row;
                 PictureList.Add(tempPicture);
@@ -109,6 +109,7 @@ public class PictureManager : MonoBehaviour
             o.SetFirstMaterial(_firstMaterial, _firstTexturePath);
             o.ApplyFirstMaterial();
             o.SetSecondMaterial(_materialList[rndMatIndex], _texturePathList[rndMatIndex]);
+            //o.ApplySecondMaterial(); // Testing Purpose
             AppliedTimes[rndMatIndex] += 1;
             forceMat = false;
         }
