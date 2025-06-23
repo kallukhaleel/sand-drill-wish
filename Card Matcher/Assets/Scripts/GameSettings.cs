@@ -12,14 +12,14 @@ public class GameSettings : MonoBehaviour
         NotSet = 0,
         EPairs10 = 10,
         EPairs15 = 15,
-        EPairs20 = 20
+        EPairs20 = 20,
     }
 
     public enum EPuzzleCategories
     {
         Notset,
         Fruits,
-        Vegetables
+        Vegetables,
     }
 
     public struct Settings
@@ -62,11 +62,9 @@ public class GameSettings : MonoBehaviour
     public void SetCategory(EPuzzleCategories category)
     {
         if(_gameSettings.PuzzleCategory == EPuzzleCategories.Notset)
-        {
-            _settings++;
+           _settings++;
 
-            _gameSettings.PuzzleCategory = category;
-        }
+       _gameSettings.PuzzleCategory = category;
     }
 
     public EPairNumber GetPairNumber()
@@ -84,5 +82,10 @@ public class GameSettings : MonoBehaviour
         _settings = 0;
         _gameSettings.PairsNumber = EPairNumber.NotSet;
         _gameSettings.PuzzleCategory = EPuzzleCategories.Notset;
+    }
+
+    public bool AllSettingsReady()
+    {
+        return _settings == SettingsNumber;
     }
 }
