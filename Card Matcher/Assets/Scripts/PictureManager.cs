@@ -12,10 +12,22 @@ public class PictureManager : MonoBehaviour
     public List<Picture> PictureList;
 
     private Vector2 _offset = new Vector2(1.5f, 1.52f);
+
+    private List<Material> _materialList = new List<Material>();
+    private List<string> _texturePathList = new List<string>();
+    private Material _firstMaterial;
+    private string _firstTexturePath;
+
     void Start()
     {
+        LoadMaterials();
         SpawnPictureMesh(4, 5, StartPosition, _offset, false );
         MovePicture(4, 5, StartPosition, _offset);
+    }
+
+    private void LoadMaterials()
+    {
+
     }
 
     void Update()
