@@ -8,8 +8,17 @@ public class Picture : MonoBehaviour
     private Material _secondMaterial;
 
     private Quaternion _currentRotation;
+
+    [HideInInspector]
+    public bool Revealed = false;
+    private PictureManager _pictureManager;
+
+    private bool _clicked = false;
     void Start()
     {
+        Revealed = false;
+        _clicked = false;
+        _pictureManager = GameObject.Find("[PictureManager]").GetComponent<PictureManager>();
         _currentRotation = gameObject.transform.rotation;
     }
 
@@ -21,9 +30,22 @@ public class Picture : MonoBehaviour
 
     public void OnMouseDown()
     {
-        StartCoroutine(LoopRotation(45, false));
+        if (!_clicked)
+        { 
+            StartCoroutine(LoopRotation(45, false));
+            _clicked = true;
+        }
     }
 
+    public void FlipBack()
+    {
+        if (gameObject.activeSelf)
+        {
+            _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
+            Revealed = false;
+            StartCoroutine(LoopRotation(45, false));
+        }
+    }
     IEnumerator LoopRotation(float angle, bool FirstMat)
     {
         var rot = 0f;
@@ -65,7 +87,14 @@ public class Picture : MonoBehaviour
 
         if (!FirstMat)
         {
+            Revealed = true;
             ApplySecondMaterial();
+            _pictureManager.CheckPicture();
+        }
+        else
+        {
+            _pictureManager.PuzzleRevealedNumber = PictureManager.ReveleadState.NoRevealed;
+            _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.CanRotate;
         }
 
     }
