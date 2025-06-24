@@ -14,6 +14,8 @@ public class Timer : MonoBehaviour
     private const float VirtualHeight = 854.0f;
 
     private bool _stopTimer;
+    private bool _hideTimer = false;
+
     private Matrix4x4 _oldMatrix;
 
 
@@ -32,6 +34,7 @@ public class Timer : MonoBehaviour
 
     private void OnGUI()
     {
+        if (_hideTimer) return;
         Matrix4x4 _oldMatrix = GUI.matrix;
 
         float scale = Screen.height / VirtualHeight;
@@ -53,6 +56,7 @@ public class Timer : MonoBehaviour
     public void StopTimer()
     {
         _stopTimer = true;
+        _hideTimer = true;
     }
 
     public float GetElapsedTime()

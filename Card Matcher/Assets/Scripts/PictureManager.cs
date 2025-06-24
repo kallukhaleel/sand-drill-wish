@@ -12,6 +12,11 @@ public class PictureManager : MonoBehaviour
     public GameObject GameOverPanel;
     public TextMeshProUGUI FinalScoreText;
 
+    //public GameObject TimerUI;
+    public GameObject ScoreUI;
+    public GameObject RestartButton;
+    public GameObject ExitButton;
+
     public enum GameState 
     { 
         NoAction, 
@@ -136,34 +141,44 @@ public class PictureManager : MonoBehaviour
             CurrentGameState = GameState.NoAction;
 
         }
-
-        if (!AreAllCardsCleared())
-        {
-            GameOverPanel.SetActive(false);
-        }
     }
 
-    private void DestroyPicture()
+    private IEnumerator HandleCardDestruction()
     {
         PuzzleRevealedNumber = ReveleadState.NoRevealed;
         PictureList[_picToDestroy1].Deactivate();
         PictureList[_picToDestroy2].Deactivate();
+       
         _revealedPicNumber = 0;
         ScoreManger.Instance.AddScore(10);
+
         CurrentGameState = GameState.NoAction;
         CurrentPuzzleState = PuzzleState.CanRotate;
+
+        yield return new WaitForSeconds(1.1f);
 
         if (AreAllCardsCleared())
         {
             CurrentGameState = GameState.GameEnd;
             GameOver();
         }
+        else
+        {
+            CurrentGameState = GameState.NoAction;
+        }
+        CurrentPuzzleState = PuzzleState.CanRotate;
     }
 
     private void GameOver()
     {
         GameOverPanel.SetActive(true);
         FinalScoreText.text = "FINAL SCORE: " + ScoreManger.Instance.GetScore();
+
+        FindObjectOfType<Timer>().StopTimer();
+
+        if (ScoreUI != null) ScoreUI.SetActive(false);
+        if (RestartButton != null) RestartButton.SetActive(false);
+        if (ExitButton != null) ExitButton.SetActive(false);
     }
 
     private bool AreAllCardsCleared()
@@ -219,12 +234,9 @@ public class PictureManager : MonoBehaviour
 
     void Update()
     {
-        if (CurrentGameState == GameState.DeletingPuzzles)
+        if (CurrentGameState == GameState.DeletingPuzzles && CurrentPuzzleState == PuzzleState.CanRotate)
         {
-            if (CurrentPuzzleState == PuzzleState.CanRotate)
-            {
-                DestroyPicture();
-            }
+            StartCoroutine(HandleCardDestruction());
         }
         if (CurrentGameState == GameState.FlipBack)
         {
