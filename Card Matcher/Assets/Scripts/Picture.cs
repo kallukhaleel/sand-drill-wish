@@ -14,6 +14,13 @@ public class Picture : MonoBehaviour
     private PictureManager _pictureManager;
 
     private bool _clicked = false;
+    private int _index;
+
+    public void SetIndex(int id) {  _index = id; }
+
+    public int GetIndex() { return _index; }
+
+
     void Start()
     {
         Revealed = false;
@@ -42,7 +49,7 @@ public class Picture : MonoBehaviour
     {
         if (gameObject.activeSelf)
         {
-            System.Threading.Thread.Sleep(600);
+            //System.Threading.Thread.Sleep(600); // testing
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             Revealed = false;
             StartCoroutine(LoopRotation(45, true));
@@ -124,4 +131,6 @@ public class Picture : MonoBehaviour
     {
         gameObject.GetComponent<Renderer>().material = _secondMaterial;
     }
+
+    public void Deactivate() { gameObject.SetActive(false); }
 }
