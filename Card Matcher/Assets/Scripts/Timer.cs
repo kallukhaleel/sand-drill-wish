@@ -42,7 +42,7 @@ public class Timer : MonoBehaviour
         _minutes = Mathf.Floor(_timer / 60);
         _seconds = Mathf.RoundToInt(_timer % 60);
 
-        GUI.Label(new Rect(Camera.main.rect.x + 20, 10, 120, 50), "" +  _minutes.ToString("00") + ":" + _seconds.ToString("00"), ClockStyle);
+        GUI.Label(new Rect(190, 10, 50, 40), $"{_minutes:00}:{_seconds:00}", ClockStyle);
 
         GUI.matrix = _oldMatrix;
     }
