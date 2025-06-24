@@ -18,7 +18,9 @@ public class PictureManager : MonoBehaviour
     public GameObject ExitButton;
 
     public TextMeshProUGUI HighScoreGameOverText;
-public TextMeshProUGUI BestTimeGameOverText;
+    public TextMeshProUGUI BestTimeGameOverText;
+
+    private int comboStreak = 0;
 
     public enum GameState 
     { 
@@ -134,6 +136,7 @@ public TextMeshProUGUI BestTimeGameOverText;
             else
             {
                 CurrentGameState = GameState.FlipBack;
+                comboStreak = 0;
             }
         }
 
@@ -153,7 +156,11 @@ public TextMeshProUGUI BestTimeGameOverText;
         PictureList[_picToDestroy2].Deactivate();
        
         _revealedPicNumber = 0;
-        ScoreManger.Instance.AddScore(10);
+        comboStreak++;
+        int bonus = 10 + (comboStreak * 5);
+        ScoreManger.Instance.AddScore(bonus);
+
+        Debug.Log($"Combo: {comboStreak}, Score Given: {bonus}");
 
         CurrentGameState = GameState.NoAction;
         CurrentPuzzleState = PuzzleState.CanRotate;
