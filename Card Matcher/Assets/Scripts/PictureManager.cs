@@ -12,10 +12,13 @@ public class PictureManager : MonoBehaviour
     public GameObject GameOverPanel;
     public TextMeshProUGUI FinalScoreText;
 
-    //public GameObject TimerUI;
+    
     public GameObject ScoreUI;
     public GameObject RestartButton;
     public GameObject ExitButton;
+
+    public TextMeshProUGUI HighScoreGameOverText;
+public TextMeshProUGUI BestTimeGameOverText;
 
     public enum GameState 
     { 
@@ -172,6 +175,22 @@ public class PictureManager : MonoBehaviour
     private void GameOver()
     {
         GameOverPanel.SetActive(true);
+
+        float currentTime = Timer.Instance.GetElapsedTime();
+        int currentScore = ScoreManger.Instance.GetScore();
+
+        if (currentScore > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", currentScore);
+        }
+
+        if (currentTime < PlayerPrefs.GetFloat("BestTime", float.MaxValue))
+        {
+            PlayerPrefs.SetFloat("BestTime", currentTime);
+        }
+
+        PlayerPrefs.Save();
+
         FinalScoreText.text = "FINAL SCORE: " + ScoreManger.Instance.GetScore();
 
         FindObjectOfType<Timer>().StopTimer();
@@ -179,6 +198,15 @@ public class PictureManager : MonoBehaviour
         if (ScoreUI != null) ScoreUI.SetActive(false);
         if (RestartButton != null) RestartButton.SetActive(false);
         if (ExitButton != null) ExitButton.SetActive(false);
+
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        float bestTime = PlayerPrefs.GetFloat("BestTime", float.MaxValue);
+
+        string formattedTime = bestTime == float.MaxValue ? "N/A" :
+            $"{Mathf.Floor(bestTime / 60):00}:{Mathf.FloorToInt(bestTime % 60):00}";
+
+        HighScoreGameOverText.text = "High Score: " + highScore;
+        BestTimeGameOverText.text = "Best Time: " + formattedTime;
     }
 
     private bool AreAllCardsCleared()

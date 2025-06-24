@@ -7,6 +7,8 @@ public class Timer : MonoBehaviour
 {
     public GUIStyle ClockStyle;
 
+    public static Timer Instance;
+
     private float _timer;
     private float _minutes;
     private float _seconds;
@@ -18,6 +20,13 @@ public class Timer : MonoBehaviour
 
     private Matrix4x4 _oldMatrix;
 
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     void Start()
     {
