@@ -223,50 +223,33 @@ public class PictureManager : MonoBehaviour
 
     public void ApplyTextures()
     {
-        var rndMatIndex = Random.Range(0, _materialList.Count);
-        var AppliedTimes = new int[_materialList.Count];
+        var totalPairs = _materialList.Count;
+        List<int> materialIndices = new List<int>();
 
-        for (int i = 0; i < _materialList.Count; i++)
+        for (int i = 0; i < totalPairs; i++)
         {
-            AppliedTimes[i] = 0;
+            materialIndices.Add(i);
+            materialIndices.Add(i);
         }
 
-        foreach (var o in PictureList)
+        for (int i = materialIndices.Count - 1; i > 0; i--)
         {
-            var randPrevious = rndMatIndex;
-            var counter = 0;
-            var forceMat = false;
+            int j = Random.Range(0, i + 1);
+            int temp = materialIndices[i];
+            materialIndices[i] = materialIndices[j];
+            materialIndices[j] = temp;
+        }
 
-            while (AppliedTimes[rndMatIndex] > 2 || ((randPrevious == rndMatIndex) && !forceMat))
-            {
-                rndMatIndex = Random.Range(0, _materialList.Count);
-                counter++;
+        for (int i = 0; i < PictureList.Count; i++)
+        {
+            int matIndex = materialIndices[i];
+            Picture pic = PictureList[i];
 
-                if (counter > 100)
-                {
-                    for (var j = 0; j < _materialList.Count; j++)
-                    {
-                        if (AppliedTimes[j] < 2 )
-                        {
-                            rndMatIndex = j;
-                            forceMat = true;
-                        }
-                    }
-
-                    if (forceMat == false)
-                    {
-                        return;
-                    }
-                }
-            }
-
-            o.SetFirstMaterial(_firstMaterial, _firstTexturePath);
-            o.ApplyFirstMaterial();
-            o.SetSecondMaterial(_materialList[rndMatIndex], _texturePathList[rndMatIndex]);
-            o.SetIndex(rndMatIndex);
-            o.Revealed = false;
-            AppliedTimes[rndMatIndex] += 1;
-            forceMat = false;
+            pic.SetFirstMaterial(_firstMaterial, _firstTexturePath);
+            pic.ApplyFirstMaterial();
+            pic.SetSecondMaterial(_materialList[matIndex], _texturePathList[matIndex]);
+            pic.SetIndex(matIndex);
+            pic.Revealed = false;
         }
     }
 
