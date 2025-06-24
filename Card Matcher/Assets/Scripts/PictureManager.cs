@@ -140,6 +140,7 @@ public class PictureManager : MonoBehaviour
         PictureList[_picToDestroy1].Deactivate();
         PictureList[_picToDestroy2].Deactivate();
         _revealedPicNumber = 0;
+        ScoreManger.Instance.AddScore(10);
         CurrentGameState = GameState.NoAction;
         CurrentPuzzleState = PuzzleState.CanRotate;
     }
