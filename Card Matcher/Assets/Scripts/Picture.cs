@@ -139,5 +139,15 @@ public class Picture : MonoBehaviour
         gameObject.GetComponent<Renderer>().material = _secondMaterial;
     }
 
-    public void Deactivate() { gameObject.SetActive(false); }
+    public void Deactivate() 
+    {
+        StartCoroutine(DeactivateCorutine());
+    }
+
+    private IEnumerator DeactivateCorutine()
+    {
+        Revealed = false;
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
+    }
 }

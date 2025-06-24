@@ -10,4 +10,8 @@ public class ButtonBehavior : MonoBehaviour
         Debug.Log("Button Clicked: Trying to load scene " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
+    public void ResetGameSettings()
+    {
+        GameSettings.Instance.ResetGameSettings();
+    }
 }

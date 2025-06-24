@@ -733,6 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32dd70f8228377f43b55ff41e5a2a56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PressSound: {fileID: 0}
   Revealed: 0
 --- !u!1 &1220603781
 GameObject:
@@ -930,6 +931,18 @@ MonoBehaviour:
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: SetGame
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 564410997}
+        m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
+        m_MethodName: ResetGameSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1348408077
