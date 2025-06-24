@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Picture : MonoBehaviour
 {
+    public AudioClip PressSound;
     private Material _firstMaterial;
     private Material _secondMaterial;
 
@@ -15,6 +16,7 @@ public class Picture : MonoBehaviour
 
     private bool _clicked = false;
     private int _index;
+    private AudioSource _audio;
 
     public void SetIndex(int id) {  _index = id; }
 
@@ -27,6 +29,9 @@ public class Picture : MonoBehaviour
         _clicked = false;
         _pictureManager = GameObject.Find("[PictureManager]").GetComponent<PictureManager>();
         _currentRotation = gameObject.transform.rotation;
+
+        _audio = GetComponent<AudioSource>();
+        _audio.clip = PressSound;
     }
 
     // Update is called once per frame
@@ -40,6 +45,7 @@ public class Picture : MonoBehaviour
         if (!_clicked)
         {
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
+            _audio.Play();
             StartCoroutine(LoopRotation(45, false));
             _clicked = true;
         }
@@ -52,6 +58,7 @@ public class Picture : MonoBehaviour
             //System.Threading.Thread.Sleep(600); // testing
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             Revealed = false;
+            _audio.Play();
             StartCoroutine(LoopRotation(45, true));
         }
     }
