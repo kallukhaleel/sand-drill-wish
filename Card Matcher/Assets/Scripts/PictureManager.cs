@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PictureManager : MonoBehaviour
@@ -7,6 +8,9 @@ public class PictureManager : MonoBehaviour
     public Picture PicturePrefab;
     public Transform PicSpawnPosition;
     public Vector2 StartPosition = new Vector2(-2.15f, 3.62f);
+
+    public GameObject GameOverPanel;
+    public TextMeshProUGUI FinalScoreText;
 
     public enum GameState 
     { 
@@ -132,6 +136,11 @@ public class PictureManager : MonoBehaviour
             CurrentGameState = GameState.NoAction;
 
         }
+
+        if (!AreAllCardsCleared())
+        {
+            GameOverPanel.SetActive(false);
+        }
     }
 
     private void DestroyPicture()
@@ -143,7 +152,32 @@ public class PictureManager : MonoBehaviour
         ScoreManger.Instance.AddScore(10);
         CurrentGameState = GameState.NoAction;
         CurrentPuzzleState = PuzzleState.CanRotate;
+
+        if (AreAllCardsCleared())
+        {
+            CurrentGameState = GameState.GameEnd;
+            GameOver();
+        }
     }
+
+    private void GameOver()
+    {
+        GameOverPanel.SetActive(true);
+        FinalScoreText.text = "FINAL SCORE: " + ScoreManger.Instance.GetScore();
+    }
+
+    private bool AreAllCardsCleared()
+    {
+        foreach (var pic in PictureList)
+        {
+            if (pic.gameObject.activeSelf)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     private IEnumerator FlipBack()
     {
