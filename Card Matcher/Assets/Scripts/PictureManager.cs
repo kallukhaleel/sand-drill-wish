@@ -135,6 +135,7 @@ public class PictureManager : MonoBehaviour
     private void DestroyPicture()
     {
         PuzzleRevealedNumber = ReveleadState.NoRevealed;
+        System.Threading.Thread.Sleep(1000);
         PictureList[_picToDestroy1].Deactivate();
         PictureList[_picToDestroy2].Deactivate();
         _revealedPicNumber = 0;
