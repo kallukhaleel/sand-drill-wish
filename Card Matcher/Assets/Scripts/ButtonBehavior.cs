@@ -7,7 +7,7 @@ public class ButtonBehavior : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
+        Debug.Log("Button Clicked: Trying to load scene " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
-
 }
