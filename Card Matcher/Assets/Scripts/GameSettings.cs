@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class GameSettings : MonoBehaviour
 {
-
-    private readonly Dictionary<EPuzzleCategories, string> _PuzzleCatDirectory = new Dictionary<EPuzzleCategories, string>();
-    private int _settings;
-    private const int SettingsNumber = 2;
+    public static GameSettings Instance;
 
     public enum EPairNumber
     {
@@ -31,8 +28,10 @@ public class GameSettings : MonoBehaviour
     }
 
     private Settings _gameSettings;
+    private int _settings;
+    private const int SettingsNumber = 2;
 
-    public static GameSettings Instance;
+    private readonly Dictionary<EPuzzleCategories, string> _PuzzleCatDirectory = new Dictionary<EPuzzleCategories, string>();
 
     private void Awake()
     {

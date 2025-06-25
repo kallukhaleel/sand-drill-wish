@@ -12,15 +12,11 @@ public class SetGameButton : MonoBehaviour
         PuzzleCategoryBtn,
     }
 
+    [Header("Button Configuration")]
     [SerializeField] public EbuttonType buttonType = EbuttonType.NotSet;
+
     [HideInInspector] public GameSettings.EPairNumber PairNumber = GameSettings.EPairNumber.NotSet;
     [HideInInspector] public GameSettings.EPuzzleCategories PuzzleCategories = GameSettings.EPuzzleCategories.Notset;
-
-
-    void Start()
-    {
-        
-    }
 
     public void SetGameOption(string GameSceneName)
     {

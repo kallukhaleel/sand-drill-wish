@@ -1,31 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class PictureManager : MonoBehaviour
 {
+    [Header("Prefabs & Spawn")]
     public Picture PicturePrefab;
     public Transform PicSpawnPosition;
     public Vector2 StartPosition = new Vector2(-2.3f, 2.4f);
 
+    [Header("UI Elements")]
     public GameObject GameOverPanel;
     public TextMeshProUGUI FinalScoreText;
     public TextMeshProUGUI CurrentTimeText;
-
     public GameObject ScoreUI;
     public GameObject RestartButton;
     public GameObject ExitButton;
-
     public TextMeshProUGUI HighScoreGameOverText;
     public TextMeshProUGUI BestTimeGameOverText;
 
+    [Header("Audio Clips")]
     public AudioClip matchSound;
     public AudioClip noMatchSound;
     private AudioSource audioSource;
-
-
-    private int comboStreak = 0;
 
     public enum GameState 
     { 
@@ -67,12 +65,13 @@ public class PictureManager : MonoBehaviour
     private Material _firstMaterial;
     private string _firstTexturePath;
 
+    
     private int _firstRevealedPic;
     private int _secondRevealedPic;
     private int _revealedPicNumber = 0;
     private int _picToDestroy1;
     private int _picToDestroy2;
-
+    private int comboStreak = 0;
     private bool _courotineStarted = false;
 
     void Start()
@@ -133,6 +132,7 @@ public class PictureManager : MonoBehaviour
         {
             bool isMatch = PictureList[_firstRevealedPic].GetIndex() == PictureList[_secondRevealedPic].GetIndex()
                    && _firstRevealedPic != _secondRevealedPic;
+
             if (isMatch)
             {
                 CurrentGameState = GameState.DeletingPuzzles;
@@ -171,8 +171,6 @@ public class PictureManager : MonoBehaviour
         comboStreak++;
         int bonus = 10 + (comboStreak * 5);
         ScoreManger.Instance.AddScore(bonus);
-
-        Debug.Log($"Combo: {comboStreak}, Score Given: {bonus}");
 
         CurrentGameState = GameState.NoAction;
         CurrentPuzzleState = PuzzleState.CanRotate;
