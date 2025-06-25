@@ -57,6 +57,7 @@ public class Timer : MonoBehaviour
         miniStyle.normal.textColor = Color.black;
         miniStyle.alignment = TextAnchor.UpperLeft;
 
+
         GUI.Label(new Rect(820, 10, 50, 40), $"{_minutes:00}:{_seconds:00}", miniStyle);
 
         GUI.matrix = _oldMatrix;

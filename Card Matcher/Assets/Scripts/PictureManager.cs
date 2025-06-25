@@ -7,7 +7,7 @@ public class PictureManager : MonoBehaviour
 {
     public Picture PicturePrefab;
     public Transform PicSpawnPosition;
-    public Vector2 StartPosition = new Vector2(-2.15f, 3.62f);
+    public Vector2 StartPosition = new Vector2(-2.3f, 2.4f);
 
     public GameObject GameOverPanel;
     public TextMeshProUGUI FinalScoreText;
@@ -52,7 +52,7 @@ public class PictureManager : MonoBehaviour
     [HideInInspector]
     public List<Picture> PictureList;
 
-    private Vector2 _offset = new Vector2(1.5f, 1.52f);
+    private Vector2 _offset = new Vector2(1.4f, 1.4f);
     private Vector2 _offset_15Pair = new Vector2(1.08f, 1.22f);
     private Vector2 _offset_20Pair = new Vector2(1.08f, 1.0f);
     private Vector3 _newScaleDown = new Vector3(0.9f, 0.9f, 0.001f);
@@ -79,9 +79,9 @@ public class PictureManager : MonoBehaviour
         _firstRevealedPic = -1;
         _secondRevealedPic = -1;
 
-
-
         LoadMaterials();
+
+
 
         if (GameSettings.Instance.GetPairNumber() == GameSettings.EPairNumber.EPairs10 )
         {
@@ -102,7 +102,6 @@ public class PictureManager : MonoBehaviour
             MovePicture(5, 8, StartPosition, _offset_20Pair);
         }
     }
-
     public void CheckPicture()
     {
         CurrentGameState = GameState.Checking;
