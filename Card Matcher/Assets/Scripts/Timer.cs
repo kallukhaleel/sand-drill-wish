@@ -73,4 +73,10 @@ public class Timer : MonoBehaviour
     {
         return _timer;
     }
+
+    public string GetFormattedTime()
+    {
+        return $"{Mathf.FloorToInt(_timer / 60):00}:{Mathf.FloorToInt(_timer % 60):00}";
+    }
+
 }

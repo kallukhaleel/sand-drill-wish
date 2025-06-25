@@ -11,14 +11,19 @@ public class PictureManager : MonoBehaviour
 
     public GameObject GameOverPanel;
     public TextMeshProUGUI FinalScoreText;
+    public TextMeshProUGUI CurrentTimeText;
 
-    
     public GameObject ScoreUI;
     public GameObject RestartButton;
     public GameObject ExitButton;
 
     public TextMeshProUGUI HighScoreGameOverText;
     public TextMeshProUGUI BestTimeGameOverText;
+
+    public AudioClip matchSound;
+    public AudioClip noMatchSound;
+    private AudioSource audioSource;
+
 
     private int comboStreak = 0;
 
@@ -80,7 +85,7 @@ public class PictureManager : MonoBehaviour
         _secondRevealedPic = -1;
 
         LoadMaterials();
-
+        audioSource = GetComponent<AudioSource>();
 
 
         if (GameSettings.Instance.GetPairNumber() == GameSettings.EPairNumber.EPairs10 )
@@ -126,16 +131,24 @@ public class PictureManager : MonoBehaviour
 
         if (_revealedPicNumber == 2)
         {
-            if (PictureList[_firstRevealedPic].GetIndex() == PictureList[_secondRevealedPic].GetIndex() && _firstRevealedPic != _secondRevealedPic)
+            bool isMatch = PictureList[_firstRevealedPic].GetIndex() == PictureList[_secondRevealedPic].GetIndex()
+                   && _firstRevealedPic != _secondRevealedPic;
+            if (isMatch)
             {
                 CurrentGameState = GameState.DeletingPuzzles;
                 _picToDestroy1 = _firstRevealedPic;
                 _picToDestroy2 = _secondRevealedPic;
+
+                if (matchSound != null)
+                    audioSource.PlayOneShot(matchSound);
             }
             else
             {
                 CurrentGameState = GameState.FlipBack;
                 comboStreak = 0;
+
+                if (noMatchSound != null)
+                    audioSource.PlayOneShot(noMatchSound);
             }
         }
 
@@ -197,7 +210,10 @@ public class PictureManager : MonoBehaviour
 
         PlayerPrefs.Save();
 
-        FinalScoreText.text = "FINAL SCORE: " + ScoreManger.Instance.GetScore();
+        FinalScoreText.text = "Your Score: " + ScoreManger.Instance.GetScore();
+        string currentTimeUsed = Timer.Instance.GetFormattedTime();
+        CurrentTimeText.text = "Your Time: " + currentTimeUsed;
+
 
         FindObjectOfType<Timer>().StopTimer();
 
@@ -213,6 +229,7 @@ public class PictureManager : MonoBehaviour
 
         HighScoreGameOverText.text = "High Score: " + highScore;
         BestTimeGameOverText.text = "Best Time: " + formattedTime;
+        
     }
 
     private bool AreAllCardsCleared()

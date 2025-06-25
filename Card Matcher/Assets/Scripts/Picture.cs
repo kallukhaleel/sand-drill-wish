@@ -5,6 +5,7 @@ using UnityEngine;
 public class Picture : MonoBehaviour
 {
     public AudioClip PressSound;
+
     private Material _firstMaterial;
     private Material _secondMaterial;
 
@@ -58,7 +59,7 @@ public class Picture : MonoBehaviour
             //System.Threading.Thread.Sleep(600); // testing
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             Revealed = false;
-            _audio.Play();
+            //_audio.Play();
             StartCoroutine(LoopRotation(45, true));
         }
     }
