@@ -8,37 +8,29 @@ public class Picture : MonoBehaviour
 
     private Material _firstMaterial;
     private Material _secondMaterial;
-
     private Quaternion _currentRotation;
 
     [HideInInspector]
     public bool Revealed = false;
-    private PictureManager _pictureManager;
 
+    private PictureManager _pictureManager;
     private bool _clicked = false;
     private int _index;
     private AudioSource _audio;
 
     public void SetIndex(int id) {  _index = id; }
-
     public int GetIndex() { return _index; }
-
 
     void Start()
     {
         Revealed = false;
         _clicked = false;
+
         _pictureManager = GameObject.Find("[PictureManager]").GetComponent<PictureManager>();
         _currentRotation = gameObject.transform.rotation;
 
         _audio = GetComponent<AudioSource>();
         _audio.clip = PressSound;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void OnMouseDown()
@@ -56,10 +48,8 @@ public class Picture : MonoBehaviour
     {
         if (gameObject.activeSelf)
         {
-            //System.Threading.Thread.Sleep(600); // testing
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             Revealed = false;
-            //_audio.Play();
             StartCoroutine(LoopRotation(45, true));
         }
     }
@@ -89,7 +79,6 @@ public class Picture : MonoBehaviour
                 yield return null;
             }
         }
-
         else
         {
             while (angle > 0)
@@ -100,6 +89,7 @@ public class Picture : MonoBehaviour
                 yield return null;
             }
         }
+
         gameObject.GetComponent<Transform>().rotation = _currentRotation;
 
         if (!FirstMat)
@@ -115,7 +105,6 @@ public class Picture : MonoBehaviour
         }
 
         _clicked = false;
-
     }
 
     public void SetFirstMaterial (Material material, string texturePath)
