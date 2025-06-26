@@ -31,13 +31,16 @@ This is a memory card-matching game where players flip cards to find matching pa
 ![Main Menu](Screenshots/Main_menu_scene.png)
 
 ### 🎮 Set Game Screen
-![Set Game](Screenshots/set_game.png)
+![Set Game](Screenshots/Set_game_menu_Scene.png)
 
-### 🏆 Leaderboard
-![Leaderboard](Screenshots/leaderboard.png)
+### 🏆 Card Flip Scene
+![Leaderboard](Screenshots/card_flip_game_scene.png)
 
 ### 🛑 Game End Panel
-![Game End](Screenshots/game_end.png)
+![Game End](Screenshots/Game_over_scene.png)
+
+### 🛑 Simulator
+![Game End](Screenshots/simulator_game_scene.png)
 
 ## 🚀 How to Run
 
