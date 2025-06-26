@@ -39,7 +39,10 @@ This is a memory card-matching game where players flip cards to find matching pa
 ### 🛑 Game End Panel
 ![Game End](Screenshots/Game_over_scene.png)
 
-### 🛑 Simulator
+### 🏆 Leader Board scene
+![Leaderboard](Screenshots/Leader_board.png)
+
+### 🛑 Simulator Scene
 ![Game End](Screenshots/simulator_game_scene.png)
 
 ## 🚀 How to Run
