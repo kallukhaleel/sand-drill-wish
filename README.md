@@ -28,7 +28,7 @@ This is a memory card-matching game where players flip cards to find matching pa
 ## 📷 Screenshots
 
 ### 🏠 Main Menu
-![Main Menu](Screenshots/main_menu.png)
+![Main Menu](Screenshots/Main_menu_scene.png)
 
 ### 🎮 Set Game Screen
 ![Set Game](Screenshots/set_game.png)
